@@ -73,7 +73,7 @@ while (!feof($file))
 }
 
 //write two specific settings for using with Azure App service on windows:
-echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_REPOSITORY_PATH=..\\repository" .PHP_EOL; 
+echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_REPOSITORY_PATH=..\\\\repository" .PHP_EOL; 
 echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_TARGET_PATH=.." .PHP_EOL; 
 
 
