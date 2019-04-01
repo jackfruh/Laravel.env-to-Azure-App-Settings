@@ -85,6 +85,6 @@ echo "az webapp config appsettings set --name ".$appname." --resource-group ". $
 
 fclose($file);
 
-echo "BE SURE TO SET APP_DEBUG=false when this goes in azure or any error will reveal all ENV values!";
-echo "BE SURE TO SET APP_ENV = 'production'";
-echo "I HAD ISSUES WITH THE AZURE_SECRET VALUE, check that it's not truncated in any way";
+echo PHP_EOL."NOTE APP_DEBUG has been set to false so you don't expose these variables on an error page in azure!".PHP_EOL;
+echo "NOTE APP_ENV has been set to 'production'".PHP_EOL;
+echo "IF YOU'RE USING AN AZURE SECRET FOR AUTHENTICATION check that it's not truncated in any way".PHP_EOL;
