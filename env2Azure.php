@@ -6,8 +6,7 @@ $pathtoenv = ".env";
 
 if (!isset($argc) || ($argc <=1 ))
 {
-	echo PHP_EOL."PHP arguments aren't working, this script can't be run.".PHP_EOL;
-    exit;	
+	showhelp();
 }
 
 //parse command line arguments
@@ -36,11 +35,7 @@ for ($i = 0; $i < $argc; $i++) {
 //confirm we have both parameters before continuing.
 if ($appname == null || $resourceGroup == null)
 {
-	echo PHP_EOL."Call this script with the following parameters:".PHP_EOL;
-	echo " env2Azure.php -appname=<appname> -rg=<resourcegroupname> [optional: -pathtoenv=<path>]".PHP_EOL.PHP_EOL;
-	echo "EXAMPLE:".PHP_EOL;
-	echo " env2Azure.php -appname=myawesomeweb -rg=myresourcegroup -pathtoenv=../projectx/.env";
-    exit;	
+	showhelp();
 }
 
 
@@ -78,7 +73,7 @@ while (!feof($file))
 }
 
 //write two specific settings for using with Azure App service on windows:
-echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_REPOSITORY_PATH=..\repository" .PHP_EOL; 
+echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_REPOSITORY_PATH=..\\repository" .PHP_EOL; 
 echo "az webapp config appsettings set --name ".$appname." --resource-group ". $resourceGroup. " --settings SCM_TARGET_PATH=.." .PHP_EOL; 
 
 
@@ -88,3 +83,13 @@ fclose($file);
 echo PHP_EOL."NOTE APP_DEBUG has been set to false so you don't expose these variables on an error page in azure!".PHP_EOL;
 echo "NOTE APP_ENV has been set to 'production'".PHP_EOL;
 echo "IF YOU'RE USING AN AZURE SECRET FOR AUTHENTICATION check that it's not truncated in any way".PHP_EOL;
+
+
+function showhelp()
+{
+	echo PHP_EOL."Call this script with the following parameters:".PHP_EOL;
+	echo " env2Azure.php -appname=<appname> -rg=<resourcegroupname> [optional: -pathtoenv=<path>]".PHP_EOL.PHP_EOL;
+	echo "EXAMPLE:".PHP_EOL;
+	echo " env2Azure.php -appname=myawesomeweb -rg=myresourcegroup -pathtoenv=../projectx/.env".PHP_EOL.PHP_EOL;
+    exit;	
+}
